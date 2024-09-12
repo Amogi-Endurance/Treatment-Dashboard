@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+        h5 {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center">Dashboard for {{ selected_facility }}</h2>
+
+        <!-- Facility Dropdown -->
+        <form method="POST" class="form-inline">
+            <label for="facility" class="mr-2">Select Facility:</label>
+            <select name="facility" class="form-control mr-2">
+                {% for facility in facilities %}
+                    <option value="{{ facility }}" {% if facility == selected_facility %}selected{% endif %}>
+                        {{ facility }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <!-- Date Range Selection for Treatment New -->
+            <label for="start_date" class="mr-2">Start Date:</label>
+            <input type="date" name="start_date" value="{{ start_date }}" class="form-control mr-2">
+            <label for="end_date" class="mr-2">End Date:</label>
+            <input type="date" name="end_date" value="{{ end_date }}" class="form-control mr-2">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <!-- Treatment New Card -->
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Treatment New</h5>
+                <p class="card-text">{{ treatment_new }}</p>
+            </div>
+        </div>
+
+        <!-- Treatment Current Card -->
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Treatment Current</h5>
+                <p class="card-text">{{ treatment_current }}</p>
+            </div>
+        </div>
+
+        <!-- Cascade Analysis Cards -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Active Eligible for Viral Load</h5>
+                        <p class="card-text">{{ active_eligible_vl }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Viral Load Results Documented</h5>
+                        <p class="card-text">{{ CurrentViralLoad }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Suppression and Coverage -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Viral Load Suppressed</h5>
+                        <p class="card-text">{{ vl_suppressed }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Coverage (%)</h5>
+                        <p class="card-text">{{ coverage }}%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Suppression Rate -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Suppression (%)</h5>
+                        <p class="card-text">{{ suppression }}%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
